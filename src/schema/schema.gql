@@ -1,0 +1,103 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Task {
+  id: Int!
+  nameTask: String!
+  description: String!
+  state: Boolean!
+  deadline: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  collectionId: Int!
+  collection: Collection
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Collection {
+  id: Int!
+  nameCollection: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  userId: Int!
+  user: User!
+  tasks: [Task!]
+}
+
+type User {
+  id: Int!
+  email: String!
+  passWord: String!
+  name: String!
+  collections: [Collection!]
+}
+
+type Token {
+  access_token: String!
+  refresh_token: String!
+}
+
+type Query {
+  getAllUsers: [User!]!
+  getCurrentUser: User!
+  collection(id: Int!): Collection!
+  task(id: Int!): Task!
+  login(loginInput: LoginInput!): Token!
+  refreshToken: Token!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  createCollection(createCollectionInput: CreateCollectionInput!): Collection!
+  updateCollection(updateCollectionInput: UpdateCollectionInput!): Collection!
+  deleteCollection(id: Int!): Collection!
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
+  deleteTask(id: Int!): Task!
+  signup(createUserInput: CreateUserInput!): User!
+}
+
+input UpdateUserInput {
+  passWord: String
+  name: String
+}
+
+input CreateCollectionInput {
+  nameCollection: String!
+}
+
+input UpdateCollectionInput {
+  nameCollection: String!
+  id: Float!
+}
+
+input CreateTaskInput {
+  nameTask: String!
+  description: String!
+  deadline: DateTime!
+  collectionId: Int!
+}
+
+input UpdateTaskInput {
+  nameTask: String
+  description: String
+  deadline: DateTime
+  collectionId: Int
+  id: Float!
+}
+
+input CreateUserInput {
+  email: String!
+  passWord: String!
+  name: String!
+}
